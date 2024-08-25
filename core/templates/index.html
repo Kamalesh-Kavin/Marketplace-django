@@ -24,4 +24,16 @@
         {% endfor %}
     </div>
 </div>
+<div class="top-categories">
+    <h2>Top Categories</h2>
+    <ul>
+      {% for category in top_categories %}
+        <li>
+          <a href="">
+            {{ category.name }} ({{ category.num_items }} items)
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
 {% endblock %}
