@@ -1,6 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from item.models import Category, Item
 from django.db.models import Count
+from django.contrib.auth import login
+from django.contrib.auth.models import User
+from .forms import SignupForm
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+
 
 # Create your views here.
 def index(request):
@@ -18,4 +24,12 @@ def login(request):
     return render(request, 'login.html')
 
 def signup(request):
-    return render(request, 'signup.html')
+    if request.method == "POST":
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("/login/")
+    else:
+        form = SignupForm()
+    
+    return render(request, 'signup.html', {'form': form})
